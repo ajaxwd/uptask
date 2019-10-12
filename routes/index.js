@@ -6,5 +6,6 @@ module.exports = function(){
 
     router.get('/', proyectosControllers.proyectosHome);
     router.get('/nuevo-proyecto', proyectosControllers.formularioProyecto);
+    router.post('/nuevo-proyecto', proyectosControllers.nuevoProyecto);
     return router;
 }

@@ -7,5 +7,9 @@ exports.proyectosHome = (req, res) => {
 exports.formularioProyecto = (req, res) => {
     res.render('nuevoProyecto', {
         nombrePagina : 'Nuevo Proyecto'
-    })
+    });
+}
+
+exports.nuevoProyecto = (req, res) => {
+    res.send('Enviaste formulario');
 }
