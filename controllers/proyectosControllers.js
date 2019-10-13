@@ -29,8 +29,8 @@ exports.nuevoProyecto = async (req, res) => {
             errores
         })
     } else {
-        const url = slug(nombre).toLowerCase();
-        const proyecto = await Proyectos.create({ nombre, url });
+        
+        const proyecto = await Proyectos.create({ nombre });
         res.redirect('/');
     }
 }
