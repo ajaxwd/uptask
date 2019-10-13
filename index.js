@@ -1,7 +1,15 @@
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
-const bodyParse = require('nody-parse');
+const bodyParse = require('body-parser');
+
+const db = require('./config/db');
+
+require('./model/Proyectos');
+
+db.sync()
+    .then(() => console.log('Conectado al servidor'))
+    .catch(error => console.log(error));
 
 const app = express();
 
