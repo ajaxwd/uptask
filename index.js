@@ -1,8 +1,8 @@
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
-const bodyParse = require('body-parser');
-const expressValidator = require('express-validator');
+const bodyParser = require('body-parser');
+const expressValidator = require("express-validator");
 
 const helpers = require('./helpers');
 
@@ -16,13 +16,17 @@ db.sync()
 
 const app = express();
 
-app.use(expressValidator());
-
 app.use(express.static('public'));
 
 app.set('view engine', 'pug');
 
-app.use(bodyParse.urlencoded({extended: true}));
+// habilitar bodyParser para leer datos del formulario
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Agregamos express validator a toda la aplicación
+// app.use(expressValidator());
 
 app.set('views', path.join(__dirname, './views'));
 
