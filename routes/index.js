@@ -5,8 +5,6 @@ const { body } = require('express-validator/check');
 
 const proyectosControllers = require('../controllers/proyectosControllers');
 
-
-
 module.exports = function(){
 
     router.get('/', proyectosControllers.proyectosHome);
