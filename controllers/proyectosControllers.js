@@ -98,9 +98,8 @@ exports.actualizarProyecto = async (req, res) => {
             proyectos
         })
     } else {
-        
         await Proyectos.update(
-            { nombre: nombre }
+            { nombre: nombre },
             { where: {id: req.params.id}
         });
         res.redirect('/');
