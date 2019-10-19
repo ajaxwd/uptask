@@ -8,8 +8,10 @@ const helpers = require('./helpers');
 
 const db = require('./config/db');
 
+//Importar modelos
 require('./model/Proyectos');
 require('./model/Tareas');
+require('./model/Usuarios');
 
 db.sync()
     .then(() => console.log('Conectado al servidor'))
