@@ -1,4 +1,4 @@
-Const Usuarios = require('../model/Usuarios');
+const Usuarios = require('../model/Usuarios');
 
 exports.formCrearCuenta = (req, res) => {
     res.render('crearCuenta', {
@@ -6,17 +6,25 @@ exports.formCrearCuenta = (req, res) => {
     })
 }
 
-exports.crearCuenta = (req, res) => {
+exports.crearCuenta = async (req, res) => {
 
     //Leer datos
-    const {id, password} = req.body;
+    const {email, password} = req.body;
 
     //crear usuario
-    Usuarios.created({
-        email,
-        password
-    })
-    .theb(() => {
-        res.redirect('/iniciar-sesion')
-    })
+    try {
+        await Usuarios.create({
+            email,
+            password
+        });
+        res.redirect('/iniciar-sesion');
+    } catch (error) {
+        req.flash('error', error.errors.map(error => error.message));
+        res.render('crearCuenta', {
+            mensajes: req.flash(),
+            nombrePagina: 'Crear Cuenta en Uptask',
+            email,
+            password
+        })
+    }
 }

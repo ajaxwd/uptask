@@ -3,6 +3,9 @@ const routes = require('./routes');
 const path = require('path');
 const bodyParser = require('body-parser');
 const expressValidator = require("express-validator");
+const flash = require('connect-flash');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const helpers = require('./helpers');
 
@@ -24,17 +27,26 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 
 // habilitar bodyParser para leer datos del formulario
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Agregamos express validator a toda la aplicación
 // app.use(expressValidator());
 
 app.set('views', path.join(__dirname, './views'));
 
+//agregar flash
+app.use(flash());
+// sesiones que utentican a los usuarios en distintas paginas
+app.use(session({
+    secret: 'supersecreto',
+    resave: false,
+    saveUninitialized: false
+}))
+
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
+    res.locals.mensajes = req.flash();
     next();
 })
 
