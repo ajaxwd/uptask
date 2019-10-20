@@ -34,6 +34,7 @@ module.exports = function(){
 
     //Crar usuario
     router.get('/crear-cuenta', usuariosControllers.formCrearCuenta);
+    router.post('/crear-cuenta', usuariosControllers.crearCuenta);
 
     return router;
 }
