@@ -6,6 +6,7 @@ const expressValidator = require("express-validator");
 const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const passport = require('./config/passport');
 
 const helpers = require('./helpers');
 
@@ -37,12 +38,19 @@ app.set('views', path.join(__dirname, './views'));
 
 //agregar flash
 app.use(flash());
+
+app.use(cookieParser());
+
 // sesiones que utentican a los usuarios en distintas paginas
 app.use(session({
     secret: 'supersecreto',
     resave: false,
     saveUninitialized: false
-}))
+}));
+
+app.use(passport.initialize());
+
+app.use(passport.session());
 
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
