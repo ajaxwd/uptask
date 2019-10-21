@@ -5,39 +5,45 @@ const bcrypt = require('bcrypt-nodejs');
 
 const Usuarios = db.define('usuarios', {
     id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, 
         primaryKey: true,
         autoIncrement: true
     },
     email: {
         type: Sequelize.STRING(60),
-        allowNull: false,
+        allowNull : false, 
         validate: {
             isEmail: {
-                msg: 'Agregar un correo Válido'
+                msg : 'Agrega un Correo Válido'
             },
             notEmpty: {
-                msg: 'El email no puede ir vacio'
+                msg: 'El e-mail no puede ir vacio'
             }
-        },
+        }, 
         unique: {
             args: true,
-            msg: 'Usuario ya registrado'
+            msg: 'Usuario Ya Registrado'
         }
-    },
+    },  
     password: {
-        type: Sequelize.STRING(60),
-        allowNull: false,
+        type: Sequelize.STRING(60), 
+        allowNull: false, 
         validate: {
             notEmpty: {
                 msg: 'El password no puede ir vacio'
             }
         }
-    }
+    }, 
+    activo: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    }, 
+    token: Sequelize.STRING, 
+    expiracion: Sequelize.DATE
 }, {
     hooks: {
         beforeCreate(usuario) {
-            usuario.password = bcrypt.hashSync(usuario.password, bcrypt.genSaltSync(10));
+            usuario.password = bcrypt.hashSync(usuario.password, bcrypt.genSaltSync(10) );
         }
     }
 });

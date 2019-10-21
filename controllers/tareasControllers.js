@@ -1,8 +1,7 @@
 const Proyectos = require('../model/Proyectos');
 const Tareas = require('../model/Tareas');
 
-exports.agregarTareas = async (req, res) => {
-    
+exports.agregarTarea = async (req, res, next) => {
     // obtenemos el Proyecto actual
     const proyecto = await Proyectos.findOne({where: { url: req.params.url }});
 
@@ -23,34 +22,34 @@ exports.agregarTareas = async (req, res) => {
     // redireccionar
     res.redirect(`/proyectos/${req.params.url }`);
 
-
 }
 
-exports.cambiarEstadoTarea = async (req, res, next) => {
-    const {id} = req.params;
-    const tarea = await Tareas.findOne({where: {id}});
+exports.cambiarEstadoTarea = async (req, res) => {
+    const { id } = req.params;
+    const tarea = await Tareas.findOne({where: { id }});
 
+    // cambiar el estado
     let estado = 0;
-    if(tarea.estado === estado){
+    if(tarea.estado === estado) {
         estado = 1;
     }
-
     tarea.estado = estado;
 
-    const resultado = tarea.save();
+    const resultado = await tarea.save();
 
     if(!resultado) return next();
-
+    
     res.status(200).send('Actualizado');
 }
 
-exports.eliminarTarea = async (req, res, next) => {
+exports.eliminarTarea = async (req, res) => {
 
-    const {id} = req.params;
+    const { id } = req.params;
 
-    const resultado = await Tareas.destroy({where: {id}});
+    // Eliminar la tarea
+    const resultado = await Tareas.destroy({where : { id  }});
 
-    if (!resultado) return next();
+    if(!resultado) return next();
 
-    res.status(200).send('Eliminando...');
+    res.status(200).send('Tarea Eliminada Correctamente');
 }

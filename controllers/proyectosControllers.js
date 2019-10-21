@@ -1,5 +1,5 @@
-const Proyectos = require('../models/Proyectos');
-const Tareas = require('../models/Tareas');
+const Proyectos = require('../model/Proyectos');
+const Tareas = require('../model/Tareas');
 
 exports.proyectosHome = async (req, res) => {
 

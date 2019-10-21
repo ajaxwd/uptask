@@ -3,10 +3,10 @@ const router = express.Router();
 
 const { body } = require('express-validator');
 
-const proyectosControllers = require('../controllers/proyectosControllers');
-const tareasControllers = require('../controllers/tareasControllers');
-const usuariosControllers = require('../controllers/usuariosControllers');
-const authControllers = require('../controllers/authControllers');
+const proyectosController = require('../controllers/proyectosControllers');
+const tareasController = require('../controllers/tareasControllers');
+const usuariosController = require('../controllers/usuariosControllers');
+const authController = require('../controllers/authControllers');
 
 module.exports = function(){
 
@@ -71,7 +71,7 @@ module.exports = function(){
     // Crear nueva cuenta
     router.get('/crear-cuenta', usuariosController.formCrearCuenta);
     router.post('/crear-cuenta', usuariosController.crearCuenta);
-    router.get('/confirmar/:correo', usuariosController.confirmarCuenta);
+    //router.get('/confirmar/:correo', usuariosController.confirmarCuenta);
 
     // iniciar sesión
     router.get('/iniciar-sesion', usuariosController.formIniciarSesion);
@@ -79,6 +79,12 @@ module.exports = function(){
 
     // cerrar sesion
     router.get('/cerrar-sesion', authController.cerrarSesion);
+
+    // reestablecer contraseña
+    router.get('/reestablecer', usuariosController.formRestablecerPassword);
+    router.post('/reestablecer', authController.enviarToken);
+    router.get('/reestablecer/:token', authController.validarToken);
+    router.post('/reestablecer/:token', authController.actualizarPassword);
 
     return router;
 }
