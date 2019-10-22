@@ -10,8 +10,8 @@ const authController = require('../controllers/authControllers');
 
 module.exports = function(){
 
-        // ruta para el home
-        router.get('/', 
+    // ruta para el home
+    router.get('/', 
         authController.usuarioAutenticado,
         proyectosController.proyectosHome
     );
@@ -71,7 +71,7 @@ module.exports = function(){
     // Crear nueva cuenta
     router.get('/crear-cuenta', usuariosController.formCrearCuenta);
     router.post('/crear-cuenta', usuariosController.crearCuenta);
-    //router.get('/confirmar/:correo', usuariosController.confirmarCuenta);
+    router.get('/confirmar/:correo', usuariosController.confirmarCuenta);
 
     // iniciar sesión
     router.get('/iniciar-sesion', usuariosController.formIniciarSesion);
